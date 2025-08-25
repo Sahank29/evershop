@@ -13,17 +13,18 @@ services:
       - myevershop
     restart: always
 
-  evershop-nginx:
-    image: nginx:latest
-    container_name: evershop-nginx
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
-      - 80:80
-      - 443:443
-    networks:
-      - myevershop
-    restart: always
+evershop-nginx:
+  image: nginx:latest
+  container_name: evershop-nginx
+  volumes:
+    - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    - /etc/letsencrypt:/etc/letsencrypt:ro
+  ports:
+    - "80:80"
+    - "443:443"
+  networks:
+    - myevershop
+  restart: always
 
   database:
     image: postgres:16
